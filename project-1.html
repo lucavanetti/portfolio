@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPR Italy — Luca Vanetti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: #888888;
+      --light: #f5f5f3;
+      --accent: #4a90d9;
+      --border: #e8e8e6;
+      --font: 'DM Sans', sans-serif;
+      --nav-h: 56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-name {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .nav-role {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── PAGE LAYOUT ── */
+    .page {
+      padding-top: var(--nav-h);
+    }
+
+    /* ── INTRO TEXT ── */
+    .intro {
+      max-width: 560px;
+      margin: 60px auto 52px;
+      padding: 0 24px;
+    }
+    .intro-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+    .intro h1 {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+    .intro p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #444;
+    }
+    .intro p + p {
+      margin-top: 14px;
+    }
+
+    /* ── IMAGE GRID ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 0 24px;
+    }
+
+    .project-grid img,
+    .project-grid video,
+    .project-grid iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* span full width */
+    .full { grid-column: 1 / -1; }
+
+    /* all cells are 1:1 square */
+    .project-grid > div {
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    /* video iframe: no extra border-radius, the div clips it */
+    .video-wrap iframe {
+      border: none;
+    }
+
+    /* ── CREDITS BLOCK ── */
+    .credits {
+      max-width: 560px;
+      margin: 64px auto 80px;
+      padding: 0 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+    }
+    .credits-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 40px;
+    }
+    .credit-item dt {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .credit-item dd {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    /* ── BACK LINK ── */
+    .back-wrap {
+      padding: 0 24px 24px;
+    }
+    .back-link {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--black); }
+    .back-link::before { content: "← "; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .intro  { animation: fadeUp 0.6s ease both 0.1s; }
+    .project-grid img {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .project-grid { grid-template-columns: 1fr; margin: 0 16px; }
+      .full { grid-column: 1; }
+      .credits-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="nav-name">Luca Vanetti</span>
+      <span class="nav-role">Graphic Designer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Work</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- INTRO -->
+    <div class="intro">
+      <p class="intro-label">MPR Italy</p>
+      <h1>Concept</h1>
+      <p>
+        Il lavoro è fatto a mano. Il nostro progetto mira a connettersi e a
+        farci percepire come gli artigiani locali, abbracciare ciò che siamo
+        e lasciare che l'identità del luogo ispiri il nostro lavoro. Abbiamo
+        iniziato lavorando verso Falso Generativo, il nuovo progetto.
+      </p>
+      <p>
+        La fase iniziale del progetto si è concentrata di ricercare sui campi
+        di lavoro, che hanno costituito la base di costruzione dell'identità
+        visiva del brand, come la tipografia Archia, la composizione modulare
+        e la palette cromatica.
+      </p>
+      <p>
+        <!-- ISTRUZIONE: sostituisci questo testo con quello esatto di Figma -->
+        <!-- Puoi incollarmi il testo e aggiorno il file -->
+      </p>
+    </div>
+
+    <!-- IMAGE GRID -->
+    <!-- ISTRUZIONE: rinomina le tue immagini come indicato e mettile in images/mpr-italy/ -->
+    <div class="project-grid">
+
+      <!-- riga 1: griglia logo varianti (full width) -->
+      <div class="full tall">
+        <img src="images/mpr-italy/01.jpg" alt="MPR Italy — varianti logo">
+      </div>
+
+      <!-- riga 2: due immagini affiancate -->
+      <div class="std">
+        <img src="images/mpr-italy/02.png" alt="MPR Italy — pattern">
+      </div>
+      <div class="std">
+        <img src="images/mpr-italy/03.png" alt="MPR Italy — moduli">
+      </div>
+
+      <!-- riga 3: VIDEO full width — autoplay silenzioso in loop -->
+      <div class="full tall">
+        <video
+          src="images/mpr-italy/04.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;">
+        </video>
+      </div>
+
+      <!-- riga 4: due immagini affiancate -->
+      <div class="std">
+        <img src="images/mpr-italy/05.png" alt="MPR Italy — composizione">
+      </div>
+      <div class="std">
+        <img src="images/mpr-italy/06.png" alt="MPR Italy — badge guest">
+      </div>
+
+       <!-- riga 4: due immagini affiancate -->
+      <div class="std">
+        <img src="images/mpr-italy/07.png" alt="MPR Italy — composizione">
+      </div>
+      <div class="std">
+        <img src="images/mpr-italy/08.png" alt="MPR Italy — badge guest">
+      </div>
+
+          <!-- riga 7: immagine solo colonna sinistra -->
+      <div class="std">
+        <img src="images/mpr-italy/09.png" alt="MPR Italy — dettaglio">
+      </div>
+
+    </div>
+
+    <!-- CREDITS -->
+    <div class="credits">
+      <p class="credits-label">Concept</p>
+      <p style="font-size:14px;font-weight:300;color:#444;line-height:1.75;margin-bottom:32px;">
+        <!-- ISTRUZIONE: incolla qui il testo finale dei collaboratori/specifiche -->
+        Il lavoro è fatto a mano. Il nostro progetto mira a connettersi
+        e a farci percepire come gli artigiani locali.
+      </p>
+      <dl class="credits-grid">
+        <div class="credit-item">
+          <dt>Cliente</dt>
+          <dd>MPR Italy</dd>
+        </div>
+        <div class="credit-item">
+          <dt>Anno</dt>
+          <dd>2024</dd>
+        </div>
+        <div class="credit-item">
+          <dt>Categoria</dt>
+          <dd>Brand Identity</dd>
+        </div>
+        <div class="credit-item">
+          <dt>Tipografia</dt>
+          <dd>Archia</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- BACK -->
+    <div class="back-wrap">
+      <a href="index.html" class="back-link">Tutti i progetti</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Luca Vanetti</p>
+    <p>Graphic Designer — Milano</p>
+  </footer>
+
+</body>
+</html>

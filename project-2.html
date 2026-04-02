@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Falso Generativo — Luca Vanetti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: #888888;
+      --light: #f5f5f3;
+      --accent: #4a90d9;
+      --border: #e8e8e6;
+      --font: 'DM Sans', sans-serif;
+      --nav-h: 56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-name {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .nav-role {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── PAGE ── */
+    .page { padding-top: var(--nav-h); }
+
+    /* ── INTRO ── */
+    .intro {
+      max-width: 560px;
+      margin: 60px auto 52px;
+      padding: 0 24px;
+    }
+    .intro-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+    .intro h1 {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+    .intro p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #444;
+    }
+    .intro p + p { margin-top: 14px; }
+    .intro .lang-en {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: #999;
+    }
+
+    /* ── MEDIA GRID ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 0 12px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    /* immagini */
+    .project-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: var(--black);
+      display: block;
+      border-radius: 12px;
+    }
+
+    /* video */
+    .project-grid video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: var(--black);
+      display: block;
+      border-radius: 12px;
+    }
+
+    /* proporzioni celle */
+    .tall  { aspect-ratio: 16/9; }
+    
+    .sq    { aspect-ratio: 1/1; }
+
+    /* ── CREDITS ── */
+    .credits {
+      max-width: 560px;
+      margin: 64px auto 80px;
+      padding: 40px 24px 0;
+      border-top: 1px solid var(--border);
+    }
+    .credits-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+    .credits p {
+      font-size: 14px;
+      font-weight: 300;
+      color: #444;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 40px;
+    }
+    .credit-item dt {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .credit-item dd {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    /* ── BACK ── */
+    .back-wrap { padding: 0 24px 24px; }
+    .back-link {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--black); }
+    .back-link::before { content: "← "; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .intro { animation: fadeUp 0.6s ease both 0.1s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .project-grid { grid-template-columns: 1fr; margin: 0 16px; }
+      .full { grid-column: 1; }
+      .credits-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="nav-name">Luca Vanetti</span>
+      <span class="nav-role">Graphic Designer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Work</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- INTRO -->
+    <div class="intro">
+      <p class="intro-label">Falso Generativo</p>
+      <h1>Concept</h1>
+      <p>
+        Il futuro è fatto a mano! Il nostro progetto mira a connettere le
+        nuove generazioni con gli artigiani locali, attraverso un'applicazione
+        mobile che funge da guida per scoprirli, imparare da loro e acquisire
+        le loro creazioni. L'obiettivo è quello di promuovere il valore
+        dell'artigianato fatto a mano.
+      </p>
+      <p>
+        La fase iniziale del progetto ha comportato la realizzazione di
+        ricerche sul campo e desk research, che hanno coinvolto numerosi
+        artigiani e potenziali utenti attraverso interviste, form online.
+        L'obiettivo principale di questa fase era quello di raccogliere
+        informazioni e generare idee per acquisire una comprensione completa
+        del contesto. Queste informazioni hanno portato a sviluppare l'idea
+        di AdOk, una piattaforma e-commerce in grado di connettere in modo
+        efficace gli artigiani e il loro pubblico.
+      </p>
+      <p class="lang-en">
+        The future is handcrafted. Our project aims to connect younger
+        generations with local artisans in our cities by creating an
+        interaction design that serves as a guide for discovering, learning
+        about, and purchasing from them. The focus is on promoting the value
+        of handmade craftsmanship for the future.
+      </p>
+      <p class="lang-en">
+        The initial stage of the project entailed conducting both field
+        and desk research, which involved engaging with numerous artisans
+        and potential users through interviews, online forms, and observation
+        of their practices. The primary objective of this phase was to gather
+        information and generate insights to gain a comprehensive understanding
+        of the context. These insights led to the development of AdOk, an
+        e-commerce platform that effectively connects artisans with their audience.
+      </p>
+    </div>
+
+    <!-- MEDIA GRID -->
+    <div class="project-grid">
+
+      <!-- 1. GIF — full width -->
+      <div class="full tall">
+        <img
+          class="gif"
+          src="images/falso-generativo/01.gif"
+          alt="Falso Generativo — animazione">
+      </div>
+
+      <!-- 2. PNG sinistra + 3. PNG destra -->
+      <div class="std">
+        <img src="images/falso-generativo/02.png" alt="Falso Generativo — dettaglio sinistro">
+      </div>
+      <div class="std">
+        <img src="images/falso-generativo/03.png" alt="Falso Generativo — dettaglio destro">
+      </div>
+
+      <!-- 4. Video sinistra + 5. PNG destra -->
+      <div class="std">
+        <video
+          src="images/falso-generativo/04.mp4"
+          autoplay
+          loop
+          muted
+          playsinline>
+        </video>
+      </div>
+      <div class="std">
+        <img src="images/falso-generativo/05.png" alt="Falso Generativo — dettaglio">
+      </div>
+
+    </div>
+
+    <!-- CREDITS -->
+    <div class="credits">
+      <p class="credits-label">Concept</p>
+      <p>
+        Il futuro è fatto a mano! Il nostro progetto mira a connettere le
+        nuove generazioni con gli artigiani locali, attraverso un'applicazione
+        mobile che funge da guida per scoprirli, imparare da loro e acquisire
+        le loro creazioni. L'obiettivo è quello di promuovere il valore
+        dell'artigianato fatto a mano.
+      </p>
+      <dl class="credits-grid">
+        <div class="credit-item">
+          <dt>Progetto</dt>
+          <dd>Tesi di Laurea</dd>
+        </div>
+        <div class="credit-item">
+          <dt>Anno</dt>
+          <dd>2024</dd>
+        </div>
+        <div class="credit-item">
+          <dt>Categoria</dt>
+          <dd>Interaction Design</dd>
+        </div>
+        <div class="credit-item">
+          <dt>Collaboratori</dt>
+          <dd><!-- ISTRUZIONE: aggiungi nomi collaboratori --></dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- BACK -->
+    <div class="back-wrap">
+      <a href="index.html" class="back-link">Tutti i progetti</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Luca Vanetti</p>
+    <p>Graphic Designer — Milano</p>
+  </footer>
+
+</body>
+</html>

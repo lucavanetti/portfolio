@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luca Vanetti — Graphic Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: #888888;
+      --light: #f5f5f3;
+      --accent: #4a90d9;
+      --border: #e8e8e6;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --nav-h: 56px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-name {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .nav-role {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── SIDE MARGIN ── */
+    .work-section { padding: 0 0 80px; }
+    .work-grid { margin: 0 12px; gap: 12px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: var(--nav-h);
+      min-height: 52vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero h1 {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      color: var(--black);
+    }
+
+    /* ── WORK GRID ── */
+    .work-section {
+      padding: 0 0 80px;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .project-card {
+      position: relative;
+      height: auto;
+      overflow: hidden;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+      background: var(--light);
+      border-radius: 12px;      
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.4s ease;
+      filter: brightness(1);
+    }
+
+    .project-card:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.88);
+    }
+
+    .project-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .project-card:hover .project-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-title {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PAGE TRANSITIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero h1 {
+      animation: fadeUp 0.7s ease both;
+      animation-delay: 0.1s;
+    }
+    .project-card {
+      animation: fadeUp 0.6s ease both;
+    }
+    .project-card:nth-child(1) { animation-delay: 0.15s; }
+    .project-card:nth-child(2) { animation-delay: 0.22s; }
+    .project-card:nth-child(3) { animation-delay: 0.29s; }
+    .project-card:nth-child(4) { animation-delay: 0.36s; }
+    .project-card:nth-child(5) { animation-delay: 0.43s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .hero { min-height: 40vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="nav-name">Luca Vanetti</span>
+      <span class="nav-role">Graphic Designer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Work</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Ciao sono Luca, Graphic designer</h1>
+  </section>
+
+  <!-- WORK GRID -->
+  <section class="work-section">
+    <div class="work-grid">
+
+      <a href="project-1.html" class="project-card">
+        <img src="images/cover-mpr-italy.png" alt="MPR Italy">
+        <div class="project-overlay">
+          <p class="project-title">MPR Italy</p>
+        </div>
+      </a>
+
+      <a href="project-2.html" class="project-card">
+        <img src="images/cover-falso-generativo.png" alt="Falso Generativo">
+        <div class="project-overlay">
+          <p class="project-title">Falso Generativo</p>
+        </div>
+      </a>
+
+      <a href="project-3.html" class="project-card">
+        <img src="images/cover-manuale-orientamento.png" alt="Manuale di Orientamento Letterario">
+        <div class="project-overlay">
+          <p class="project-title">Manuale di Orientamento Letterario</p>
+        </div>
+      </a>
+
+      <a href="project-4.html" class="project-card">
+        <img src="images/cover-adok.png" alt="AdOk">
+        <div class="project-overlay">
+          <p class="project-title">AdOk</p>
+        </div>
+      </a>
+
+      <a href="project-5.html" class="project-card">
+        <img src="images/cover-experience-summer-camp.png" alt="Experience Summer Camp">
+        <div class="project-overlay">
+          <p class="project-title">Experience Summer Camp</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Luca Vanetti</p>
+    <p>Graphic Designer — Milano</p>
+  </footer>
+
+</body>
+</html>
