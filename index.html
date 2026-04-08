@@ -4,10 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Luca Vanetti — Graphic Designer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'G2 Erika';
+      src: url('fonts/G2-Erika-Regular.woff2') format('woff2'),
+           url('fonts/G2-Erika-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'G2 Erika';
+      src: url('fonts/G2Erika-Light.woff2') format('woff2'),
+           url('fonts/G2Erika-Light.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'G2 Erika';
+      src: url('fonts/G2Erika-Medium.woff2') format('woff2'),
+           url('fonts/G2Erika-Medium.woff') format('woff');
+      font-weight: 500;
+      font-style: normal;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -17,8 +35,7 @@
       --light: #f5f5f3;
       --accent: #4a90d9;
       --border: #e8e8e6;
-      --font: 'DM Sans', sans-serif;
-      --mono: 'DM Mono', monospace;
+      --font: 'G2 Erika', sans-serif;
       --nav-h: 56px;
     }
 
@@ -46,26 +63,15 @@
       z-index: 100;
     }
 
-    .nav-brand {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      text-decoration: none;
-    }
     .nav-name {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--black);
+      text-decoration: none;
     }
-    .nav-role {
-      font-size: 12px;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
+    .nav-name:hover { text-decoration: underline; }
 
     .nav-links {
       display: flex;
@@ -78,15 +84,15 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      color: var(--gray);
-      transition: color 0.2s;
+      color: var(--black);
+      transition: none;
     }
-    .nav-links a:hover { color: var(--black); }
-    .nav-links a.active { color: var(--accent); }
+    .nav-links a:hover { text-decoration: underline; }
+    .nav-links a.active { text-decoration: underline; }
 
     /* ── SIDE MARGIN ── */
     .work-section { padding: 0 0 80px; }
-    .work-grid { margin: 0 12px; gap: 12px; }
+    .work-grid { margin: 0 12px; }
 
     /* ── HERO ── */
     .hero {
@@ -111,23 +117,22 @@
     .work-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 6px;
     }
 
     .project-card {
       position: relative;
-      height: auto;
       overflow: hidden;
       cursor: pointer;
       display: block;
       text-decoration: none;
       background: var(--light);
-      border-radius: 12px;      
+      border-radius: 4px;
     }
 
     .project-card img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
       display: block;
       transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -171,7 +176,7 @@
     }
     footer p {
       font-size: 12px;
-      color: var(--gray);
+      color: var(--black);
       letter-spacing: 0.05em;
     }
 
@@ -203,12 +208,8 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav>
-    <a href="index.html" class="nav-brand">
-      <span class="nav-name">Luca Vanetti</span>
-      <span class="nav-role">Graphic Designer</span>
-    </a>
+    <a href="index.html" class="nav-name">Luca Vanetti</a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Work</a></li>
       <li><a href="about.html">About</a></li>

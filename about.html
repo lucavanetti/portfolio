@@ -4,29 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Luca Vanetti</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'G2 Erika';
+      src: url('fonts/G2-Erika-Regular.woff2') format('woff2'),
+           url('fonts/G2-Erika-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'G2 Erika';
+      src: url('fonts/G2Erika-Light.woff2') format('woff2'),
+           url('fonts/G2Erika-Light.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'G2 Erika';
+      src: url('fonts/G2Erika-Medium.woff2') format('woff2'),
+           url('fonts/G2Erika-Medium.woff') format('woff');
+      font-weight: 500;
+      font-style: normal;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --white: #ffffff;
-      --gray: #888888;
-      --light: #f5f5f3;
-      --accent: #4a90d9;
-      --border: #e8e8e6;
-      --font: 'DM Sans', sans-serif;
+      --bg:     #f2f2f2;
+      --black:  #0a0a0a;
+      --muted:  rgba(101, 140, 243, 0.45);
+      --border: rgba(101, 140, 243, 0.2);
+      --font: 'G2 Erika', sans-serif;
       --nav-h: 56px;
     }
 
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
-      background: var(--white);
+      background: var(--bg);
       color: var(--black);
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
     }
 
     /* ── NAV ── */
@@ -38,125 +56,127 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 32px;
-      background: rgba(255,255,255,0.92);
+      background: rgba(242, 242, 242, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       z-index: 100;
     }
-    .nav-brand {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      text-decoration: none;
+    .nav-name { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: none; }
+    .nav-name:hover { text-decoration: underline; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--black); transition: none; }
+    .nav-links a:hover { text-decoration: underline; }
+    .nav-links a.active { text-decoration: underline; }
+
+    /* ── FOTO FISSA ── */
+    .fixed-photo {
+      position: fixed;
+      top: calc(var(--nav-h) + 32px);
+      left: 24px;
+      width: 300px;
+      height: 450px;
+      z-index: 10;
+      border-radius: 4px;
+      overflow: hidden;
     }
-    .nav-name {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--black);
+    .fixed-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    .nav-role {
-      font-size: 12px;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--gray);
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--black); }
-    .nav-links a.active { color: var(--accent); }
 
     /* ── PAGE ── */
-    .page {
-      padding-top: var(--nav-h);
-      min-height: 100vh;
-    }
+    .page { padding-top: var(--nav-h); }
 
-    /* ── ABOUT GRID ── */
+    /* ── GRIGLIA 3 COLONNE ── */
     .about-grid {
       display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 12px;
-      margin: 60px 24px 80px;
-      align-items: start;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin: 0 24px;
     }
 
-    /* ── COLONNA SINISTRA: TESTO ── */
-    .about-text {
-      padding: 8px 48px 8px 0;
+    .about-row { display: contents; }
+
+    .col-empty {
+      grid-column: 1 / 2;
+      padding: 52px 0;
     }
 
-    .about-label {
-      font-size: 11px;
+    .col-label {
+      grid-column: 2 / 3;
+      padding: 52px 32px 52px 0;
+      font-size: 16px;
       font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0;
+      text-transform: none;
       color: var(--black);
-      margin-bottom: 24px;
     }
 
-    .about-body {
+    .col-body {
+      grid-column: 3 / 4;
+      padding: 52px 0;
+    }
+
+    .col-body p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--black);
+      max-width: 72ch;
+    }
+    .col-body p + p { margin-top: 20px; }
+
+    /* esperienze e formazione */
+    .experience-item + .experience-item {
+      margin-top: 12px;
+    }
+    .exp-period {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+    .exp-title {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 0;
+    }
+    .exp-desc {
       font-size: 14px;
       font-weight: 300;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 48px;
+      line-height: 1.65;
+      color: var(--muted);
     }
 
-    .about-body p + p {
-      margin-top: 16px;
-    }
-
-    /* link download CV */
+    /* CV link */
     .cv-link {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 400;
       letter-spacing: 0.06em;
-      color: var(--accent);
+      color: var(--black);
       text-decoration: none;
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 2px;
       transition: opacity 0.2s;
     }
-    .cv-link:hover { opacity: 0.7; }
-    .cv-link svg {
-      width: 16px;
-      height: 16px;
-      stroke: var(--accent);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
-    }
+    .cv-link:hover { opacity: 0.6; }
+    .cv-link svg { width: 18px; height: 18px; stroke: var(--black); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ── COLONNA DESTRA: IMMAGINE CV ── */
-    .cv-image-wrap {
-      border-radius: 12px;
-      outline: 1px solid #b9b9b9;
-      overflow: hidden;
+    /* link esterni nelle esibizioni */
+    .ext-link {
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--muted);
+      transition: opacity 0.2s;
     }
-
-    .cv-image-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    .ext-link:hover { opacity: 0.6; }
 
     /* ── FOOTER ── */
     footer {
@@ -165,87 +185,101 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin: 40px 0 0;
     }
-    footer p {
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.05em;
-    }
+    footer p { font-size: 12px; color: var(--black); letter-spacing: 0.05em; }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .about-text { animation: fadeUp 0.6s ease both 0.1s; }
-    .cv-image-wrap { animation: fadeUp 0.6s ease both 0.2s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .col-label { animation: fadeUp 0.6s ease both 0.1s; }
+    .col-body  { animation: fadeUp 0.6s ease both 0.2s; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
-      .about-grid {
-        grid-template-columns: 1fr;
-        margin: 40px 16px 60px;
-      }
-      .about-text { padding: 0; }
+      .fixed-photo { display: none; }
+      .about-grid { grid-template-columns: 1fr; margin: 0 16px; }
+      .col-empty { display: none; }
+      .col-label { grid-column: 1; padding: 32px 0 8px; }
+      .col-body { grid-column: 1; padding: 0 0 32px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav>
-    <a href="index.html" class="nav-brand">
-      <span class="nav-name">Luca Vanetti</span>
-      <span class="nav-role">Graphic Designer</span>
-    </a>
+    <a href="index.html" class="nav-name">Luca Vanetti</a>
     <ul class="nav-links">
       <li><a href="index.html">Work</a></li>
       <li><a href="about.html" class="active">About</a></li>
     </ul>
   </nav>
 
+  <div class="fixed-photo">
+    <img src="images/foto-luca-vanetti.jpg" alt="Luca Vanetti">
+  </div>
+
   <div class="page">
     <div class="about-grid">
 
-      <!-- COLONNA SINISTRA: testo -->
-      <div class="about-text">
-        <p class="about-label">Chi sono</p>
-        <div class="about-body">
-          <p>
-            <!-- ISTRUZIONE: sostituisci con il tuo testo di presentazione -->
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Pretium
-            tellus duis convallis tempus leo eu aenean. Iaculis massa nisl
-            malesuada lacinia integer nunc posuere.
-          </p>
-          <p>
-            Conubia nostra inceptos himenaeos orci varius natoque penatibus.
-            Nulla molestie mattis scelerisque maximus eget fermentum odio.
-            Blandit quis suspendisse aliquet nisi sodales consequat magna.
-          </p>
+      <!-- RIGA 1: Background -->
+      <div class="about-row">
+        <div class="col-empty"></div>
+        <div class="col-label">Background</div>
+        <div class="col-body">
+          <p>Mi chiamo Luca Vanetti, sono un graphic designer specializzato in brand identity e comunicazione digitale. Aiuto aziende e organizzazioni a costruire identità visive coerenti e significative.</p>
+          <p>Ho iniziato come autodidatta, spinto da una passione per il disegno che nel tempo si è trasformata in un interesse più ampio per i new media e la cultura visiva. Un'evoluzione che ho scelto di consolidare accademicamente conseguendo la Laurea Magistrale in Design della Comunicazione al Politecnico di Milano. Ho lavorato sia come freelance che in contesti aziendali, collaborando con realtà molto diverse tra loro. Queste esperienze hanno definito il mio metodo progettuale, fondato su due pilastri: ricerca e ascolto.</p>
+          <p>Lavoro con Adobe Suite, Figma, Blender e TouchDesigner. Negli ultimi anni ho sviluppato un forte interesse per l'arte generativa, un territorio di ricerca personale che alimenta e contamina il mio lavoro quotidiano. Quando non sto progettando, mi puoi trovare in montagna, immerso in un podcast di storia o in un videogioco.</p>
         </div>
-
-        <!-- Download CV -->
-        <a href="files/cv-luca-vanetti.pdf" download class="cv-link">
-          <svg viewBox="0 0 24 24">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="12" y1="18" x2="12" y2="12"/>
-            <polyline points="9 15 12 18 15 15"/>
-          </svg>
-          Scarica il CV
-        </a>
       </div>
 
-      <!-- COLONNA DESTRA: immagine CV -->
-      <div class="cv-image-wrap">
-        <img src="images/cv-luca-vanetti.png" alt="Curriculum Vitae — Luca Vanetti">
+      <!-- RIGA 2: Collaborazioni -->
+      <div class="about-row">
+        <div class="col-empty"></div>
+        <div class="col-label">Collaborazioni</div>
+        <div class="col-body">
+          <p>Break Italia<br>Medical Product Research<br>Millemani<br>Modvlar<br>Osteopata Francesca Trivini</p>
+        </div>
+      </div>
+
+      <!-- RIGA 3: Resume -->
+      <div class="about-row">
+        <div class="col-empty"></div>
+        <div class="col-label">Resume</div>
+        <div class="col-body">
+          <p>2023<br>Displaid<br>Communication Specialist<br>&nbsp;<br>2020 — 2021<br>Enoplastic<br>Graphic & Product Designer<br>&nbsp;<br>2019 — 2020<br>Sport & Holidays<br>Graphic Designer</p>
+        </div>
+      </div>
+
+      <!-- RIGA 4: Talk, Esibizioni, Awards -->
+      <div class="about-row">
+        <div class="col-empty"></div>
+        <div class="col-label">Talk, Esibizioni, Awards</div>
+        <div class="col-body">
+          <p>2023<br>&nbsp;<br><a href="https://aieducamp.metid.polimi.it/?page_id=46" target="_blank" class="ext-link">Project Exhibition @Politecnico di Milano<br>Miscellanea AI | AI EDU CAMP Milano Digital Week 2023</a><br>&nbsp;<br>&nbsp;<br>2022<br>&nbsp;<br><a href="https://www.sinestesie.it/controsenso/2022/g" target="_blank" class="ext-link">Project Exhibition @Istituto dei Ciechi di Milano<br>Urlo muto della Terra | ControSenso</a><br>&nbsp;<br><a href="https://www.graphicdays.it/neologia/urlo-muto-della-terra-camilla-guerci-lorenzo-cordioli-angela-piazza-giulia-picasso-luca-vanetti/" target="_blank" class="ext-link">Project Exhibition @Graphic Days Torino<br>Urlo muto della Terra | Neologia</a><br>&nbsp;<br>MuVi6 Selection @University of Granada<br>Pulsating Textures | VII Intern. Congress "Synaesthesia: Science & Art"</p>
+        </div>
+      </div>
+
+      <!-- RIGA 5: Curriculum -->
+      <div class="about-row">
+        <div class="col-empty"></div>
+        <div class="col-label">Curriculum</div>
+        <div class="col-body">
+          <a href="files/cv-luca-vanetti.pdf" download class="cv-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <polyline points="9 15 12 18 15 15"/>
+            </svg>
+            Scarica il CV
+          </a>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2025 Luca Vanetti</p>
     <p>Graphic Designer — Milano</p>
