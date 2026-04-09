@@ -92,21 +92,23 @@
 
     /* ── SIDE MARGIN ── */
     .work-section { padding: 0 0 80px; }
-    .work-grid { margin: 0 12px; }
+    .work-grid { margin: 0 12px; gap: 12px; }
 
     /* ── HERO ── */
     .hero {
       padding-top: var(--nav-h);
       min-height: 52vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-end;
+      padding-left: 12px;
+      padding-bottom: 40px;
     }
     .hero h1 {
-      font-size: clamp(20px, 3vw, 28px);
-      font-weight: 300;
-      letter-spacing: 0.01em;
+      font-size: clamp(28px, 4.5vw, 64px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
       color: var(--black);
+      line-height: 1.15;
     }
 
     /* ── WORK GRID ── */
@@ -117,7 +119,7 @@
     .work-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      gap: 12px;
     }
 
     .project-card {
@@ -127,7 +129,7 @@
       display: block;
       text-decoration: none;
       background: var(--light);
-      border-radius: 4px;
+      border-radius: 12px;
     }
 
     .project-card img {
@@ -198,6 +200,27 @@
     .project-card:nth-child(4) { animation-delay: 0.36s; }
     .project-card:nth-child(5) { animation-delay: 0.43s; }
 
+    /* ── LAGO CURSOR ── */
+    .lago-img {
+      position: fixed;
+      pointer-events: none;
+      width: 260px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 999;
+      transform: translate(12px, 12px);
+    }
+    .lago-img.portrait {
+      width: 180px;
+      height: 260px;
+    }
+    .lago-img.visible { opacity: 1; }
+    .lago-trigger { cursor: none; }
+    .lago-trigger:hover { text-decoration: underline; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       nav { padding: 0 20px; }
@@ -213,12 +236,16 @@
     <ul class="nav-links">
       <li><a href="index.html" class="active">Work</a></li>
       <li><a href="about.html">About</a></li>
+      <li><a href="fun.html">Fun</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <h1>Ciao sono Luca, Graphic designer</h1>
+    <h1><span class="lago-trigger" id="luca-trigger">Luca Vanetti</span> — Graphic Designer<br>
+    specialising in brand identity &amp; digital design,<br>
+    based around <span class="lago-trigger" id="lago-trigger">Lago di Varese</span>.<br>
+    Currently open to work.</h1>
   </section>
 
   <!-- WORK GRID -->
@@ -268,6 +295,24 @@
     <p>© 2025 Luca Vanetti</p>
     <p>Graphic Designer — Milano</p>
   </footer>
+  <img id="lago-img" class="lago-img" src="images/lago-di-varese.jpg" alt="Lago di Varese">
+  <img id="luca-img" class="lago-img portrait" src="images/foto-luca-vanetti.jpg" alt="Luca Vanetti">
+
+  <script>
+    function initTrigger(triggerId, imgId) {
+      const trigger = document.getElementById(triggerId);
+      const img = document.getElementById(imgId);
+      trigger.addEventListener('mouseenter', () => img.classList.add('visible'));
+      trigger.addEventListener('mouseleave', () => img.classList.remove('visible'));
+      trigger.addEventListener('mousemove', (e) => {
+        img.style.left = e.clientX + 'px';
+        img.style.top  = e.clientY + 'px';
+      });
+    }
+
+    initTrigger('lago-trigger', 'lago-img');
+    initTrigger('luca-trigger', 'luca-img');
+  </script>
 
 </body>
 </html>

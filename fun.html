@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun — Luca Vanetti</title>
+  <style>
+    @font-face { font-family: 'G2 Erika'; src: url('fonts/G2-Erika-Regular.woff2') format('woff2'), url('fonts/G2-Erika-Regular.woff') format('woff'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'G2 Erika'; src: url('fonts/G2Erika-Light.woff2') format('woff2'), url('fonts/G2Erika-Light.woff') format('woff'); font-weight: 300; font-style: normal; }
+    @font-face { font-family: 'G2 Erika'; src: url('fonts/G2Erika-Medium.woff2') format('woff2'), url('fonts/G2Erika-Medium.woff') format('woff'); font-weight: 500; font-style: normal; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f2f2f2;
+      --bg: #1a1917;
+      --text: #f2f2f2;
+      --border: rgba(242, 242, 242, 0.15);
+      --font: 'G2 Erika', sans-serif;
+      --nav-h: 56px;
+      --col-text: calc(100vw / 6 * 2);
+      --col-video: calc(100vw / 6);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: rgba(26,25,23,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 200; }
+    .nav-name { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nav-name:hover { text-decoration: underline; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--text); }
+    .nav-links a:hover { text-decoration: underline; }
+    .nav-links a.active { text-decoration: underline; }
+
+    /* ── LAYOUT ── */
+    .page {
+      padding-top: var(--nav-h);
+      display: flex;
+      align-items: flex-start;
+    }
+
+    /* 2 colonne fisse a sinistra */
+    .col-fixed {
+      position: sticky;
+      top: var(--nav-h);
+      width: var(--col-text);
+      min-width: var(--col-text);
+      height: calc(100vh - var(--nav-h));
+      padding: 52px 32px 52px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .col-fixed p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    /* 4 colonne scrollabili a destra */
+    .col-scroll {
+      flex: 1;
+      padding: 12px 12px 80px 0;
+    }
+
+    /* griglia a 4 colonne */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .video-grid video,
+    .video-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .video-grid > div {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    /* ── COLOR SWITCH BUTTON ── */
+    .color-btn {
+      position: fixed;
+      bottom: 32px;
+      left: 24px;
+      z-index: 300;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      line-height: 0;
+    }
+    .color-btn:hover { opacity: 0.8; }
+    footer { padding: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 12px; color: var(--text); letter-spacing: 0.05em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .page { flex-direction: column; }
+      .col-fixed { position: static; width: 100%; height: auto; padding: 32px 16px 24px; }
+      .col-scroll { width: 100%; padding: 0 16px 60px; }
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 32px 16px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Luca Vanetti</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="fun.html">Fun</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- COLONNA SINISTRA FISSA -->
+    <div class="col-fixed">
+      <p>This space brings together personal projects, experiments, and creative research. Work born out of curiosity, with no client to answer to and no brief to follow. At the centre is generative art: visual systems built with TouchDesigner, Blender, and ComfyUI, where the process is as much a part of the work as the result itself.</p>
+    </div>
+
+    <!-- COLONNE DESTRA SCROLLABILI -->
+    <div class="col-scroll">
+      <div class="video-grid">
+        <div><video src="images/fun/01.mp4" autoplay loop muted playsinline></video></div>
+        <div><video src="images/fun/02.mp4" autoplay loop muted playsinline></video></div>
+        <div><video src="images/fun/03.mp4" autoplay loop muted playsinline></video></div>
+        <div><video src="images/fun/04.mp4" autoplay loop muted playsinline></video></div>
+        <div><video src="images/fun/05.mp4" autoplay loop muted playsinline></video></div>
+        <div><video src="images/fun/06.mp4" autoplay loop muted playsinline></video></div>
+        <div><video src="images/fun/07.mp4" autoplay loop muted playsinline></video></div>
+        <div><img src="images/fun/08.png" alt="Fun 08"></div>
+        <div><img src="images/fun/09.png" alt="Fun 09"></div>
+        <div><img src="images/fun/10.png" alt="Fun 10"></div>
+        <div><img src="images/fun/11.png" alt="Fun 11"></div>
+        <div><img src="images/fun/12.png" alt="Fun 12"></div>
+        <div><img src="images/fun/13.png" alt="Fun 13"></div>
+        <div><img src="images/fun/14.png" alt="Fun 14"></div>
+        <div><img src="images/fun/15.png" alt="Fun 15"></div>
+        <div><img src="images/fun/16.png" alt="Fun 16"></div>
+        <div><img src="images/fun/17.png" alt="Fun 17"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="color-btn" onclick="nextPalette()" aria-label="Cambia colore">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="13.5" cy="6.5" r="1.5"/>
+      <circle cx="17.5" cy="10.5" r="1.5"/>
+      <circle cx="8.5" cy="7.5" r="1.5"/>
+      <circle cx="6.5" cy="12.5" r="1.5"/>
+      <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+    </svg>
+  </button>
+
+  <footer>
+    <p>© 2025 Luca Vanetti</p>
+    <p>Graphic Designer — Milano</p>
+  </footer>
+
+  <script>
+    const palettes = [
+      { bg: '#1a1917', text: '#f2f2f2', nav: 'rgba(26,25,23,0.92)' },
+      { bg: '#8B1A1A', text: '#B8F5A0', nav: 'rgba(139,26,26,0.92)' },
+      { bg: '#0033FF', text: '#F5F0E8', nav: 'rgba(0,51,255,0.92)' },
+      { bg: '#E8F4FD', text: '#FF6B35', nav: 'rgba(232,244,253,0.92)' },
+      { bg: '#FF00FF', text: '#00FF00', nav: 'rgba(255,0,255,0.92)' },
+      { bg: '#FFFF00', text: '#1A0050', nav: 'rgba(255,255,0,0.92)' },
+      { bg: '#00FFC8', text: '#FF0055', nav: 'rgba(0,255,200,0.92)' },
+      { bg: '#1A0050', text: '#FF6EFF', nav: 'rgba(26,0,80,0.92)' },
+      { bg: '#FF3800', text: '#001AFF', nav: 'rgba(255,56,0,0.92)' },
+      { bg: '#004D00', text: '#CCFF00', nav: 'rgba(0,77,0,0.92)' },
+    ];
+
+    let current = 0;
+
+    function nextPalette() {
+      current = (current + 1) % palettes.length;
+      const p = palettes[current];
+      document.documentElement.style.setProperty('--bg', p.bg);
+      document.documentElement.style.setProperty('--text', p.text);
+      document.documentElement.style.setProperty('--border', hexToRgba(p.text, 0.15));
+      document.querySelector('nav').style.background = p.nav;
+    }
+
+    function hexToRgba(hex, alpha) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+  </script>
+</html>
